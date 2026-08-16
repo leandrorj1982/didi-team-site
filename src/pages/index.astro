@@ -1,22 +1,24 @@
 ---
+/**
+ * Home — estado Etapa 2. Conteúdo provisório "a fornecer" (não inventar).
+ * Header/Footer/hero real vêm nas Etapas 6+; aqui só o shell visual básico.
+ */
+import BaseLayout from "../components/layout/BaseLayout.astro";
+import Container from "../components/ui/Container.astro";
+import Section from "../components/ui/Section.astro";
+
 const pageTitle = "Didi Team";
 const pageDescription =
   "Site da academia Didi Team em construção. Conteúdo a fornecer.";
 ---
 
-<!doctype html>
-<html lang="pt-BR">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{pageTitle}</title>
-    <meta name="description" content={pageDescription} />
-    <meta name="robots" content="noindex" />
-  </head>
-  <body>
-    <main>
-      <h1>Didi Team</h1>
-      <p>Site em construção. Conteúdo a fornecer.</p>
-    </main>
-  </body>
-</html>
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <main id="conteudo">
+    <Section theme="dark" id="placeholder">
+      <Container>
+        <h1>Didi Team</h1>
+        <p>Site em construção. Conteúdo a fornecer.</p>
+      </Container>
+    </Section>
+  </main>
+</BaseLayout>

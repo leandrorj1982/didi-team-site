@@ -1,0 +1,29 @@
+---
+/**
+ * Container — wrapper central de largura controlada (MASTER seção 4).
+ * Uso: <Container><slot/></Container>
+ */
+interface Props {
+  /** Tag HTML raiz. */
+  as?: "div" | "main" | "section" | "article" | "header" | "footer" | "nav";
+  /** Classe extra para casos pontuais (sem abstrair prematuramente). */
+  class?: string;
+}
+
+const { as: Tag = "div", class: extraClass }: Props = Astro.props;
+---
+
+<Tag
+  class:list={["container", extraClass]}
+>
+  <slot />
+</Tag>
+
+<style>
+  .container {
+    width: 100%;
+    max-width: var(--container-max);
+    margin-inline: auto;
+    padding-inline: var(--container-padding);
+  }
+</style>

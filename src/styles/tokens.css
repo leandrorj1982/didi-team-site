@@ -1,0 +1,88 @@
+/*
+ * Didi Team — Design tokens (espelha design-system/MASTER.md).
+ * Direção visual aprovada: A — Editorial Minimalista, branco-dominante,
+ * com seções escuras intercaladas apenas via Section theme="dark".
+ * Regra imutável: paleta = preto + branco + vermelho (cinzas neutros são apoio).
+ *
+ * TODO: self-host das fontes (Bebas Neue + Source Sans 3, subset latin) em
+ *   public/fonts/ — quando disponíveis os arquivos WOFF2 oficiais com licença
+ *   OFL incluída, declarar @font-face em base.css com font-display: swap.
+ *   Não usar fontes de sites não oficiais nem criar arquivos falsos.
+ *   Enquanto não houver arquivos oficiais, usar apenas fallbacks de sistema.
+ */
+
+:root {
+  /* —— Paleta (MASTER seção 2) —— */
+  --color-black: #000000;
+  --color-white: #ffffff;
+  --color-red: #e10600;
+  --color-red-600: #c00500;
+  --color-ink: #0a0a0a;
+  --color-paper: #f4f4f4;
+  --color-gray-900: #1a1a1a;
+  --color-gray-600: #6b6b6b;
+  --color-gray-400: #9a9a9a;
+  --color-line: #e5e5e5;
+
+  /* —— Tipografia (MASTER seção 3) ——
+   * Sem @font-face local por enquanto (sem WOFF2 oficiais verificados).
+   * Fallbacks de sistema preservam o melhor possível o caráter do projeto:
+   *   - display: condensado/all-caps (Impact / Arial Narrow);
+   *   - corpo: sans neutra legível. */
+  --font-display: Impact, "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
+  --font-body: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  /* Escala (clamp, mobile-first) */
+  --text-hero: clamp(3.5rem, 14vw, 11rem);
+  --text-h1: clamp(2.75rem, 7vw, 5rem);
+  --text-h2: clamp(2rem, 4.5vw, 3.25rem);
+  --text-h3: clamp(1.5rem, 2.5vw, 2rem);
+  --text-body-lg: clamp(1.125rem, 1.2vw, 1.25rem);
+  --text-body: 1rem; /* 16px mínimo */
+  --text-sm: 0.875rem;
+  --text-label: 0.75rem; /* all-caps, letter-spacing 0.12em */
+
+  /* —— Espaçamento (MASTER seção 4) —— */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 40px;
+  --space-2xl: 64px;
+  --space-3xl: 96px;
+  --space-section: clamp(64px, 10vw, 128px);
+
+  /* —— Grid / container (MASTER seção 4) —— */
+  --container-max: 1280px;
+  --container-padding: clamp(20px, 5vw, 80px);
+  --grid-gap: 24px;
+
+  /* —— Transições (MASTER seção 7 — só estado, 150–250ms) —— */
+  --duration-fast: 150ms;
+  --duration-base: 200ms;
+  --duration-slow: 250ms;
+  --ease: ease;
+}
+
+/*
+ * Tokens semânticos por tema de seção (claro/escuro).
+ * Default = claro (Direção A branco-dominante). Section theme="dark" aplica
+ * [data-theme="dark"] para criar as áreas escuras intercaladas.
+ */
+:root,
+[data-theme="light"] {
+  --section-bg: var(--color-white);
+  --section-fg: var(--color-black);
+  --section-fg-muted: var(--color-gray-600);
+  --section-border: var(--color-line);
+  --section-link: var(--color-black);
+}
+
+[data-theme="dark"] {
+  --section-bg: var(--color-ink);
+  --section-fg: var(--color-white);
+  --section-fg-muted: var(--color-gray-400);
+  --section-border: var(--color-gray-900);
+  --section-link: var(--color-white);
+}

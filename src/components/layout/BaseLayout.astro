@@ -1,0 +1,52 @@
+---
+/**
+ * BaseLayout — shell mínimo da Etapa 2 (BUILD_PLAN seção 6 etapa 2:
+ * "BaseLayout só com <slot/>").
+ *
+ * Renderiza <html lang="pt-BR">, <head> (charset, viewport, title, description,
+ * robots noindex preservado, CSS global) e <slot/>.
+ *
+ * Acessibilidade: contém o link "Pular para o conteúdo" (visível ao foco)
+ * apontando para #conteudo. A página fornecida via slot deve renderizar
+ * exatamente um <main id="conteudo">; o BaseLayout não cria outro <main>.
+ *
+ * Header/Footer e SeoMeta ficam para a Etapa 3 (não avançar aqui).
+ */
+import "../../styles/base.css";
+
+interface Props {
+  title: string;
+  description: string;
+  /** Tema base do <body>. Default "light" — Direção A é branco-dominante. */
+  theme?: "dark" | "light";
+  /** canonical opcional. */
+  canonical?: string;
+}
+
+const {
+  title,
+  description,
+  theme = "light",
+  canonical,
+} = Astro.props;
+
+// TODO(Etapa 3+): mover SEO/OG/JSON-LD para <SeoMeta />. Aqui só o essencial.
+---
+
+<!doctype html>
+<html lang="pt-BR" data-theme={theme}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    {/* noindex preservado até conteúdo real existir (regra das restrições). */}
+    <meta name="robots" content="noindex" />
+    {canonical && <link rel="canonical" href={canonical} />}
+    {/* TODO: preconnect/preload self-host quando public/fonts/ existir. */}
+  </head>
+  <body>
+    <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+    <slot />
+  </body>
+</html>

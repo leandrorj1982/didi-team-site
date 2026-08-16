@@ -2,11 +2,7 @@
   "extends": "astro/tsconfigs/strict",
   "compilerOptions": {
     "strict": true,
-    "noUncheckedIndexedAccess": true,
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["src/*"]
-    }
+    "noUncheckedIndexedAccess": true
   },
   "include": [".astro/types.d.ts", "**/*"],
   "exclude": ["dist", "node_modules", ".opencode"]

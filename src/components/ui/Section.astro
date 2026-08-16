@@ -1,0 +1,79 @@
+---
+/**
+ * Section — seção editorial com ritmo claro/escuro (MASTER seção 0 #11, seção 8).
+ * Props mínimas da Etapa 2. Eyebrow/title são renderizados só quando recebidos.
+ */
+interface Props {
+  /** Tema de fundo da seção (alternância editorial). */
+  theme?: "dark" | "light";
+  /** id âncora. */
+  id?: string;
+  /** Label mono tipo "01 — MUAY THAI" (opcional, texto cru). */
+  eyebrow?: string;
+  /** Título da seção (opcional). */
+  title?: string;
+  /** aria-labelledby explícito (default: id + "-title"). */
+  ariaLabelledby?: string;
+}
+
+const {
+  theme = "dark",
+  id,
+  eyebrow,
+  title,
+  ariaLabelledby,
+}: Props = Astro.props;
+
+const titleId = id ? `${id}-title` : undefined;
+const labelledby = ariaLabelledby ?? (title ? titleId : undefined);
+---
+
+<section
+  id={id}
+  data-theme={theme}
+  aria-labelledby={labelledby}
+>
+  <slot name="content">
+    {(eyebrow || title) && (
+      <header class="section-head">
+        {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+        {title && <h2 id={titleId} class="section-title">{title}</h2>}
+      </header>
+    )}
+    <slot />
+  </slot>
+</section>
+
+<style>
+  section {
+    padding-block: var(--space-section);
+    background: var(--section-bg);
+    color: var(--section-fg);
+    transition: background-color var(--duration-base) var(--ease),
+      color var(--duration-base) var(--ease);
+  }
+
+  .section-head {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-xl);
+    max-width: var(--container-max);
+    margin-inline: auto;
+    padding-inline: var(--container-padding);
+  }
+
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: var(--text-label);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--section-fg-muted);
+  }
+
+  .section-title {
+    font-size: var(--text-h2);
+  }
+
+  /* O conteúdo interno deve usar <Container> quando quiser o alinhamento. */
+</style>

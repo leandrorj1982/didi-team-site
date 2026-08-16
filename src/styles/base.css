@@ -1,0 +1,94 @@
+/*
+ * Didi Team — Reset + base tipográfica (design-system/MASTER.md seções 3, 7, 10).
+ * Sem frameworks, CSS próprio. Importa tokens antes de tudo.
+ */
+@import "./tokens.css";
+
+/* —— Fontes —
+ * Sem @import de Google Fonts e sem @font-face local enquanto não houver
+ * arquivos WOFF2 oficiais verificados (Bebas Neue + Source Sans 3) com licença
+ * OFL incluída em public/fonts/. Uso apenas fallbacks de sistema.
+ * TODO: ao obter os WOFF2 oficiais, declarar @font-face aqui com
+ *   font-display: swap e subset latin.
+ */
+
+/* —— Reset minimal —— */
+*,*::before,*::after { box-sizing: border-box; }
+* { margin: 0; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+body {
+  min-height: 100vh;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+img,picture,svg,video { display: block; max-width: 100%; }
+img { height: auto; }
+input,button,textarea,select { font: inherit; color: inherit; }
+button { background: none; border: 0; cursor: pointer; }
+ul[role="list"], ol[role="list"] { list-style: none; padding: 0; }
+a { color: inherit; }
+
+/* —— Base tipográfica —— */
+body {
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  /* Direção A — branco-dominante. Áreas escuras só via Section theme="dark". */
+  background: var(--color-white);
+  color: var(--color-black);
+}
+
+h1,h2,h3,h4 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  line-height: 1.05;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  /* overlap mínimo entre títulos (MASTER: 1.05–1.15) */
+}
+h1 { line-height: 1.1; }
+h5,h6 { font-family: var(--font-body); font-weight: 700; line-height: 1.15; }
+
+p,ul,ol { max-width: 66ch; }
+
+/* —— Links / foco (MASTER seção 10 + A11y) —— */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--color-red);
+  outline-offset: 2px;
+}
+
+a:not([class]) { text-decoration-line: underline; }
+
+/* —— Layout helpers —— */
+main { scroll-margin-top: 88px; } /* header flutuante não sobrepõe âncoras */
+.skip-link {
+  position: absolute;
+  left: -999px;
+  top: 0;
+  z-index: 1000;
+  padding: var(--space-sm) var(--space-md);
+  background: var(--color-white);
+  color: var(--color-black);
+  font-weight: 600;
+}
+.skip-link:focus-visible {
+  left: var(--space-sm);
+  top: var(--space-sm);
+  outline: 2px solid var(--color-red);
+  outline-offset: 2px;
+}
+
+/* —— Reduced motion (MASTER seção 0 #12) —— */
+@media (prefers-reduced-motion: reduce) {
+  *,*::before,*::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
